@@ -37,7 +37,7 @@ function addToDo(event) {
     const toDoDiv = document.createElement("div");
     toDoDiv.classList.add('todo', `${savedTheme}-todo`);
 
-    // Existing Elements
+    // New Task
     const newToDo = document.createElement('li');
     newToDo.innerText = toDoInput.value;
     newToDo.classList.add('todo-item');
@@ -61,17 +61,29 @@ function addToDo(event) {
         toDoDiv.appendChild(reminderElement);
     }
 
-    // Append buttons and to-do item to the list
+    // Add check and delete buttons
+    const checked = document.createElement('button');
+    checked.innerHTML = '<i class="fas fa-check"></i>';
+    checked.classList.add("check-btn", `${savedTheme}-button`);
+    toDoDiv.appendChild(checked);
+
+    const deleted = document.createElement('button');
+    deleted.innerHTML = '<i class="fas fa-trash"></i>';
+    deleted.classList.add("delete-btn", `${savedTheme}-button`);
+    toDoDiv.appendChild(deleted);
+
+    // Append to list and save to localStorage
     toDoList.appendChild(toDoDiv);
     saveLocal(toDoInput.value, activeCategory, tagInput.value, priorityLevel.value, dueDate, reminder);
 
-    // Reset form
+    // Reset form inputs
     toDoInput.value = '';
     tagInput.value = '';
     priorityLevel.value = 'Low';
     dueDateInput.value = '';
     reminderInput.value = '';
 }
+
 
 // Check reminders every minute
 setInterval(() => {
